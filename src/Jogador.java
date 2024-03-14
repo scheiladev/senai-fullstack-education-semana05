@@ -2,8 +2,8 @@ public class Jogador {
 
   private String nome;
   private int idade;
-  private int pontuacao = 0;
-  private int numeroTentivas = 0;
+  private int pontuacao;
+  private int numeroTentivas;
 
   public int adicionaPontos() {
     return pontuacao++;
@@ -22,6 +22,13 @@ public class Jogador {
     this.idade = idade;
     this.pontuacao = pontuacao;
     this.numeroTentivas = numeroTentivas;
+  }
+
+  public Jogador(String nome, int idade) {
+    this.nome = nome;
+    this.idade = idade;
+    this.pontuacao = 0;
+    this.numeroTentivas = 5;
   }
 
   public String getNome() {
