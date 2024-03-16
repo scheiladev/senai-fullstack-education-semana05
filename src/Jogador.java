@@ -2,33 +2,34 @@ public class Jogador {
 
   private String nome;
   private int idade;
-  private int pontuacao;
-  private int numeroTentivas;
+  private int pontuacao = 0;
+  private int numeroTentativas = 0;
 
   public int adicionaPontos() {
-    return pontuacao++;
+    return ++this.pontuacao;
   }
 
   public int perdePontos() {
-    return pontuacao--;
+    if (this.getPontuacao() >= 1) {
+      return --this.pontuacao;
+    }
+    return this.getPontuacao();
   }
 
   public int adicionaTentativa() {
-    return numeroTentivas++;
+    return ++this.numeroTentativas;
   }
 
-  public Jogador(String nome, int idade, int pontuacao, int numeroTentivas) {
+  public Jogador(String nome, int idade, int pontuacao, int numeroTentativas) {
     this.nome = nome;
     this.idade = idade;
     this.pontuacao = pontuacao;
-    this.numeroTentivas = numeroTentivas;
+    this.numeroTentativas = numeroTentativas;
   }
 
   public Jogador(String nome, int idade) {
     this.nome = nome;
     this.idade = idade;
-    this.pontuacao = 0;
-    this.numeroTentivas = 0;
   }
   public Jogador() { }
 
@@ -56,11 +57,11 @@ public class Jogador {
     this.pontuacao = pontuacao;
   }
 
-  public int getNumeroTentivas() {
-    return numeroTentivas;
+  public int getNumeroTentativas() {
+    return numeroTentativas;
   }
 
-  public void setNumeroTentivas(int numeroTentivas) {
-    this.numeroTentivas = numeroTentivas;
+  public void setNumeroTentativas(int numeroTentativas) {
+    this.numeroTentativas = numeroTentativas;
   }
 }
