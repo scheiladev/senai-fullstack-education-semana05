@@ -5,7 +5,37 @@ import java.util.Scanner;
 public class Jogo {
 
   public static Random random = new Random();
+  
+  public static void jogar(Scanner entrada, Jogador jogador, ArrayList<Jogador> jogadores, int num) {
+    int limite = random.nextInt(num + 1);
+    System.out.println(limite);
 
+    do {
+      System.out.println("Escolha um número entre 0 e " + num);
+      int apostaJogador = entrada.nextInt();
+      
+      if (apostaJogador != limite) {
+        jogador.perdePontos();
+        jogador.adicionaTentativa();
+        System.out.println("Você errou!");
+        System.out.println("----------------------------------");
+        System.out.println("Pontuação: " + jogador.getPontuacao());
+        System.out.println("Tentativas: " + jogador.getNumeroTentativas());
+        System.out.println("----------------------------------\n");
+      } else {
+        jogador.adicionaPontos();
+        jogador.adicionaTentativa();
+        System.out.println("Você acertou!");
+        System.out.println("----------------------------------");
+        System.out.println("Pontuação: " + jogador.getPontuacao());
+        System.out.println("Tentativas: " + jogador.getNumeroTentativas());
+        System.out.println("----------------------------------\n");
+
+        Jogadores.exibirJogadores(jogadores);
+        return;
+      }
+    } while (true);
+  }
   public static void jogar(Scanner entrada, Jogador jogador, ArrayList<Jogador> jogadores) {
 
     String melhorJogador;
@@ -51,7 +81,7 @@ public class Jogo {
 
   public static String apostaSistema() {
     int sistema = random.nextInt(3) + 1;
-    return escolha(sistema);
+    return pedraPapelTesoura(sistema);
   }
 
   public static String apostaJogador(Scanner entrada) {
@@ -66,13 +96,13 @@ public class Jogo {
       if (jogada < 1 || jogada > 3) {
         System.out.println("Jogada inválida! Tente novamente.\n");
       } else {
-        return escolha(jogada);
+        return pedraPapelTesoura(jogada);
       }
     } while (true);
 
   }
 
-  public static String escolha(int aposta) {
+  public static String pedraPapelTesoura(int aposta) {
     switch (aposta) {
       case 1:
         return "Pedra";
