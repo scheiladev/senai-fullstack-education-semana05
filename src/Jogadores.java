@@ -25,4 +25,8 @@ public class Jogadores {
     }
     return null;
   }
+
+  public static void adicionarJogadores(Jogador jogador) {
+    melhoresJogadores.add(jogador);
+  }
 }
