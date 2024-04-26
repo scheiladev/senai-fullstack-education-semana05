@@ -4,62 +4,48 @@ import java.util.Scanner;
 public class Main {
 
   public static Scanner entrada = new Scanner(System.in);
+  public static Jogador jogadorAtivo;
 
   public static void main(String[] args) {
-    Jogador jogador = novoJogador(entrada);
-    Jogadores.adicionarJogadores(jogador);
-    exibirMenu(entrada, jogador, Jogadores.melhoresJogadores);
-    System.out.println();
+
+    Jogadores.carregarJogadores();
+
+    iniciarJogo();
   }
 
-  private static void exibirMenu(Scanner entrada, Jogador jogador, ArrayList<Jogador> jogadores) {
+  public static void iniciarJogo(){
     do {
-      System.out.println("/-- FLIPERAMA MENU --/");
+      jogadorAtivo = Jogador.loginJogo(entrada);
+      exibirMenu(entrada, jogadorAtivo, Jogadores.listaJogadores);
+      System.out.println();
+    } while (true);
+  }
+
+  public static void exibirMenu(Scanner entrada, Jogador jogadorAtivo, ArrayList<Jogador> jogadores) {
+    do {
+      System.out.println("--- FLIPERAMA MENU --------------------------------");
       System.out.println("1 - Jogar Pedra x Papel x Tesoura");
       System.out.println("2 - Jogar Número Secreto");
       System.out.println("0 - Sair");
-      System.out.println("/--------------------/");
-      System.out.println();
-
-      System.out.print("Digite a opção desejada: ");
+      System.out.println("---------------------------------------------------");
+      System.out.print("Opção escolhida: ");
       int opcao = entrada.nextInt();
       System.out.println();
       switch (opcao) {
         case 1:
-          Jogo.jogar(entrada, jogador, jogadores);
-          System.out.println();
+          Jogo.jogar(entrada, jogadorAtivo, jogadores);
           break;
         case 2:
           System.out.print("Digite um número qualquer: ");
           int limite = entrada.nextInt();
-          Jogo.jogar(entrada, jogador, jogadores, limite);
-          System.out.println();
+          Jogo.jogar(entrada, jogadorAtivo, jogadores, limite);
           break;
         case 0:
-          return;
+          iniciarJogo();
         default:
-          System.out.println("Opção inválida! Tente novamente.");
+          System.out.println("Opção inválida! Tente novamente.\n");
       }
     } while (true);
   }
 
-  private static Jogador novoJogador(Scanner entrada) {
-    Jogador jogador = new Jogador();
-    String nomeJogador = "";
-
-    while (jogador != null) {
-      System.out.print("Digite o nome do jogador: ");
-      nomeJogador = entrada.next();
-      jogador = Jogadores.buscarJogadorPorNome(nomeJogador);
-      if (jogador != null) {
-        System.out.println("Este jogador já existe. Tente novamente.\n");
-      }
-    }
-
-    System.out.print("Digite a idade do jogador: ");
-    int idadeJogador = entrada.nextInt();
-    jogador = new Jogador(nomeJogador, idadeJogador);
-
-    return jogador;
-  }
 }
