@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Jogador {
 
   private String nome;
@@ -18,6 +20,28 @@ public class Jogador {
 
   public int adicionaTentativa() {
     return ++this.numeroTentativas;
+  }
+
+  public static Jogador loginJogo(Scanner entrada) {
+
+    System.out.print("Digite o nome do jogador: ");
+    String nomeJogador = entrada.next();
+
+    Jogador jogador = Jogadores.buscarJogadorPorNome(nomeJogador);
+
+    if (jogador != null) {
+      System.out.println("Jogador localizado. Bom jogo.\n");
+      return jogador;
+    }
+
+    System.out.print("Digite a idade do jogador: ");
+    int idadeJogador = entrada.nextInt();
+
+    jogador = new Jogador(nomeJogador, idadeJogador);
+    System.out.println();
+
+    Jogadores.adicionarJogadores(jogador);
+    return jogador;
   }
 
   public Jogador(String nome, int idade, int pontuacao, int numeroTentativas) {
